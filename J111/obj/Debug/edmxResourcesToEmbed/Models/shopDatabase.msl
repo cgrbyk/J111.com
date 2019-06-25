@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Shop_dbModelStoreContainer" CdmEntityContainer="Shop_dbEntities">
+    <EntitySetMapping Name="ADRES">
+      <EntityTypeMapping TypeName="Shop_dbModel.ADRES">
+        <MappingFragment StoreEntitySet="ADRES">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="AdresAdi" ColumnName="AdresAdi" />
+          <ScalarProperty Name="AdresAciklama" ColumnName="AdresAciklama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KARTVERILERI">
+      <EntityTypeMapping TypeName="Shop_dbModel.KARTVERILERI">
+        <MappingFragment StoreEntitySet="KARTVERILERI">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="KartId" ColumnName="KartId" />
+          <ScalarProperty Name="KartSonTarih" ColumnName="KartSonTarih" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KATEGORILER">
+      <EntityTypeMapping TypeName="Shop_dbModel.KATEGORILER">
+        <MappingFragment StoreEntitySet="KATEGORILER">
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+          <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KULLANICI">
+      <EntityTypeMapping TypeName="Shop_dbModel.KULLANICI">
+        <MappingFragment StoreEntitySet="KULLANICI">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="KullaniciEmail" ColumnName="KullaniciEmail" />
+          <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+          <ScalarProperty Name="KullaniciAd" ColumnName="KullaniciAd" />
+          <ScalarProperty Name="KullaniciSoyad" ColumnName="KullaniciSoyad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OZELLIKLER">
+      <EntityTypeMapping TypeName="Shop_dbModel.OZELLIKLER">
+        <MappingFragment StoreEntitySet="OZELLIKLER">
+          <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+          <ScalarProperty Name="OzellikAdı" ColumnName="OzellikAdı" />
+          <ScalarProperty Name="OzellikAciklama" ColumnName="OzellikAciklama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RESIMLER">
+      <EntityTypeMapping TypeName="Shop_dbModel.RESIMLER">
+        <MappingFragment StoreEntitySet="RESIMLER">
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="ResimBytes" ColumnName="ResimBytes" />
+          <ScalarProperty Name="isDefault" ColumnName="isDefault" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SIPARIS">
+      <EntityTypeMapping TypeName="Shop_dbModel.SIPARIS">
+        <MappingFragment StoreEntitySet="SIPARIS">
+          <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="SiparisTarih" ColumnName="SiparisTarih" />
+          <ScalarProperty Name="AdresAdi" ColumnName="AdresAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="URUNLER">
+      <EntityTypeMapping TypeName="Shop_dbModel.URUNLER">
+        <MappingFragment StoreEntitySet="URUNLER">
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+          <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+          <ScalarProperty Name="UrunStok" ColumnName="UrunStok" />
+          <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+          <ScalarProperty Name="UrunKategoriID" ColumnName="UrunKategoriID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ISTEKLISTESI" TypeName="Shop_dbModel.ISTEKLISTESI" StoreEntitySet="ISTEKLISTESI">
+      <EndProperty Name="KULLANICI">
+        <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+      </EndProperty>
+      <EndProperty Name="URUNLER">
+        <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SIPARISURUNLER" TypeName="Shop_dbModel.SIPARISURUNLER" StoreEntitySet="SIPARISURUNLER">
+      <EndProperty Name="SIPARIS">
+        <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
+      </EndProperty>
+      <EndProperty Name="URUNLER">
+        <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,138 @@
+﻿@model J111.Models.adresData
+@{
+    ViewBag.Title = "adresGiris";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    @using (Html.BeginForm("adresGiris", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="flex-column">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="usr">Kullanıcı Email</label>
+                                    @Html.TextBoxFor(m => m.KULLANICIEMAIL, "E-MAIL", new { @type = "email", @class = "form-control form-control-lg", @required = "true" })
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="usr">Kullanıcı şifre</label>
+                                    @Html.TextBoxFor(m => m.KULLANICISIFRE, "ŞİFRE", new { @type = "password", @class = "form-control form-control-lg", @required = "true" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col"><h3>Girilecek Adres Sayısı :</h3></div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" onkeyup="tikla()" onchange="tikla()" required="true" id="usr1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="KaynakDiv">                       
+                    </div>
+                    <div class="col">
+                        <button style="width:inherit;margin-top:20px" type="submit" class="btn btn-primary btn-lg">Kayıt</button>
+                        @if (ViewBag.sonuc != null)
+                        {
+                            <label style="color:red">@ViewBag.sonuc</label>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    }
+</div>
+
+<script>
+    var sayac = 0;
+    var toplam = 0;
+    function tikla() {
+        var count = document.getElementById('usr1').value;
+        count = count - toplam;
+        var kaynak = document.getElementById('KaynakDiv');
+        var i;
+        if (count > 0) {
+            if (toplam < 5)
+                for (i = 0; i < count; i++) {
+                    kaynak.innerHTML += '<div class="col" id="hedefdiv' + sayac + '">' +
+                        '<div class="row">' +
+                        '<div class="col">' +
+                        '<div class="form-group">' +
+                        '<label for="usr">Adres Adı</label>' +
+                        '<input class="form-control form-control-lg" id="AdresAd_D_' + sayac + '_" name="AdresAdıD[' + sayac + ']" required="true" type="text" value="">' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col">' +
+                        '<div class="form-group">' +
+                        '<label for="usr">Adres Acıklama</label>' +
+                        '<input class="form-control form-control-lg" id="AdresAc_D_' + sayac + '_" name="AdresAcıD[' + sayac + ']" required="true" type="text" value="">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                    sayac++;
+                    toplam++;
+                    if (toplam >= 5)
+                        break;
+                }
+        }
+        else {
+            count = document.getElementById('usr1').value;
+            kaynak.innerHTML = '';
+            sayac = 0;
+            toplam = 0;
+            for (i = 0; i < count; i++) {
+                kaynak.innerHTML += '<div class="col" id="hedefdiv' + sayac + '">' +
+                    '<div class="row">' +
+                    '<div class="col">' +
+                    '<div class="form-group">' +
+                    '<label for="usr">Adres Adı</label>' +
+                    '<input class="form-control form-control-lg" id="AdresAd_D_' + sayac + '_" name="AdresAdıD[' + sayac + ']" type="text" value="">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col">' +
+                    '<div class="form-group">' +
+                    '<label for="usr">Adres Acıklama</label>' +
+                    '<input class="form-control form-control-lg" id="AdresAc_D_' + sayac + '_" name="AdresAcıD[' + sayac + ']" type="text" value="">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                sayac++;
+                toplam++;
+                if (toplam >= 5)
+                    break;
+            }
+        }
+    }
+</script>
+
+<!--
+ <div class="col" id="hedefdiv1">
+     <div class="row">
+         <div class="col">
+             <div class="form-group">
+                 <label for="usr">Adres Adı</label>
+                 @Html.TextBoxFor(m => m.AdresAdıD[0], "AdresAdı", new { @type = "text", @class = "form-control form-control-lg" })
+             </div>
+         </div>
+         <div class="col">
+             <div class="form-group">
+                 <label for="usr">Adres Acıklama</label>
+                 @Html.TextBoxFor(m => m.AdresAcıD[0], "Adres Acıklama", new { @type = "text", @class = "form-control form-control-lg" })
+             </div>
+         </div>
+     </div>
+ </div>
+-->

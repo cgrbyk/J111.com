@@ -1,0 +1,344 @@
+﻿@using J111.Models;
+@{
+    ViewBag.Title = "Urun";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+    <div class="row">
+        <div class="col-sm">
+            <img src="@Url.Action("GetImage", new { id = Model.UrunId })" style="width:inherit;height:inherit" />
+        </div>
+        <div class="col-sm">
+            <div class="flex-column">
+                <div class="col">
+                    <h2>@Model.KategoriAdi / @Model.UrunAdi</h2>
+                    <h4>@Model.UrunAciklama</h4>
+                </div>
+                <form>
+                    <div class="col border border-left-0 border-right-0">
+                        <div class="row">
+                            <div class="col">
+                                <h4 style="color:#808080;margin-top:5px">Beden :</h4>
+                                <h4 style="color:#808080;margin-top:25px">Renk :</h4>
+                                <h4 style="color:#808080;margin-top:18px">Güncel Boy :</h4>
+                                <h4 style="color:#808080;margin-top:15px">Güncel Kilo :</h4>
+                                <h4 style="color:#808080;margin-top:22px">Adet :</h4>
+
+                            </div>
+
+                            <div class="col-9" style="float:left">
+                                <select class="border" style="font-size:large;width:150px">
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                </select>
+                                <div class="w-100"></div>
+                                <select class="border" style="font-size:large;width:150px;margin-top:15px">
+                                    <option value="Sari">Sarı</option>
+                                    <option value="Mavi">Mavi</option>
+                                    <option value="Kirmizi">Kırmızı</option>
+                                </select>
+                                <input type="text" style="margin-top:10px" class="form-control" id="usr">
+                                <input type="text" style="margin-top:10px" class="form-control" id="usr2">
+                                <input class="border" style="width:35px;margin-top:10px;font-size:large" type="number" id="number" value="0" />
+                                <div style="margin-top:5px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col shadow-sm p-3 mb-5 bg-white rounded">
+                    <div class="row no-gutters">
+                        <div class="col">
+                            <h1 style="margin-top:5px;float:right;font-size:35px">@Model.UrunFiyat TL</h1>
+                        </div>
+                        <div class="col-8">
+                            <h6 style="margin-top:18px;color:#808080">kdv<p>dahil</p></h6>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <div class="row no-gutters" style="margin-top:15px;">
+                                <div class="col">
+                                    <button style="float:right" type="button" class="btn btn-success btn-lg">Hemen Al</button>
+                                </div>
+                                <div class="col">
+                                    <a href="@Url.Action("Sepet", "Home", new {UrunID=Model.UrunId})">
+                                        <button style="float:right" type="button" class="btn btn-info btn-lg">Sepete Ekle</button>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <button style="float:right" type="button" class="btn btn-danger btn-lg">İstek Listesi</button>
+                                </div>
+                                <div class="col">
+                                    <button style="float:right" type="button" class="btn btn-warning btn-lg">Fiyat Alarmı</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col shadow-sm p-3 mb-5 bg-white rounded">
+                    <div class="row no-gutters">
+                        <div class="col">
+                            <h1 style="font-size:35px;font:italic">Gelengi Elektronik</h1>
+                        </div>
+                        <div class="col">
+                            <div class="row no-gutters" style="margin-top:10px">
+                                <div style="margin-top:10px" class="progress col-8">
+                                    <div class="progress-bar" role="progressbar" style="width:100%;height:35px" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="col" style="color:green;margin-left:10px"><h2>98 Puan</h2></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="container-fluid shadow p-3 mb-5 bg-white rounded">
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"> <a style="font-size:large" data-toggle="tab" href="#UB">Ürün Bilgileri</a> </li>
+            <li><a style="font-size:large" data-toggle="tab" href="#TS">Taksit Seçenekleri</a></li>
+            <li><a style="font-size:large" data-toggle="tab" href="#KY">Kullanıcı Yorumları</a></li>
+            <li><a style="font-size:large" data-toggle="tab" href="#SC">Soru ve Cevap</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="UB" class="tab-pane active">
+                <div class="row no-gutters">
+                    <div class="col-sm">
+                        <ul class="list-group list-group-flush" style="text-align:left;">
+                            @for (int i = 0; i < Model.ozellikAd.Length; i++)
+                            {
+                                if (i % 2 == 0)
+                                {
+                                    <li class="list-group-item">@Model.ozellikAd[i].ToString()</li>
+                                }
+                                else
+                                {
+                                    <li style="background-color:#A5A5A5" class="list-group-item">@Model.ozellikAd[i].ToString()</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-sm">
+                        <ul class="list-group list-group-flush" style="text-align:right;">
+                            @for (int i = 0; i < Model.ozellikAciklama.Length; i++)
+                            {
+                                if (i % 2 == 0)
+                                {
+                                    <li class="list-group-item">@Model.ozellikAciklama[i].ToString()</li>
+                                }
+                                else
+                                {
+                                    <li style="background-color:#A5A5A5" class="list-group-item">@Model.ozellikAciklama[i].ToString()</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="TS" class="tab-pane fade">
+                <div class="row" style="text-align:center">
+                    <div class="col">
+                        <div class="flex-column">
+                            <div class="col">
+                                <img src="~/images/bonus.png" class="img-center" style="margin-top:25px;margin-bottom:25px" />
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <h4 style="color:#808080;text-align:right">Taksit Sayısı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080">Taksit Tutarı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080;text-align:left">Toplam Tutar</h4>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row no-gutters">
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">3</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">150</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">2500</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="flex-column">
+                            <div class="col">
+                                <img src="~/images/axess.png" class="img-center" style="margin-top:25px;margin-bottom:25px" />
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <h4 style="color:#808080;text-align:right">Taksit Sayısı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080">Taksit Tutarı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080;text-align:left">Toplam Tutar</h4>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row no-gutters">
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">3</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">150</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">2500</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="flex-column">
+                            <div class="col">
+                                <img src="~/images/maximum.png" class="img-center" style="margin-top:25px;margin-bottom:25px" />
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <h4 style="color:#808080;text-align:right">Taksit Sayısı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080">Taksit Tutarı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080;text-align:left">Toplam Tutar</h4>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row no-gutters">
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">3</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">150</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">2500</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <div class="flex-column">
+                            <div class="col">
+                                <img src="~/images/paraf.png" class="img-center" style="margin-top:25px;margin-bottom:25px" />
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <h4 style="color:#808080;text-align:right">Taksit Sayısı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080">Taksit Tutarı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080;text-align:left">Toplam Tutar</h4>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row no-gutters">
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">3</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">150</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">2500</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="flex-column">
+                            <div class="col">
+                                <img src="~/images/world.png" class="img-center" style="margin-top:25px;margin-bottom:25px" />
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <h4 style="color:#808080;text-align:right">Taksit Sayısı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080">Taksit Tutarı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080;text-align:left">Toplam Tutar</h4>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row no-gutters">
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">3</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">150</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">2500</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="margin-top:22px">
+                        <div class="flex-column">
+                            <div class="col">
+                                <img src="~/images/cadfinas.png" class="img-center" style="margin-top:25px;margin-bottom:25px" />
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4">
+                                    <h4 style="color:#808080;text-align:right">Taksit Sayısı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080">Taksit Tutarı</h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080;text-align:left">Toplam Tutar</h4>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row no-gutters">
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">3</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">150</h3>
+                                    </div>
+                                    <div class="col border">
+                                        <h3 style="color:black;background-color:#CCCCCC">2500</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="KY" class="tab-pane fade">
+
+            </div>
+            <div id="SC" class="tab-pane fade">
+
+            </div>
+        </div>
+    </div>
+</div>
+

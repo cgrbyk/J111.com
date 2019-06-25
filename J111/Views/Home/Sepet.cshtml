@@ -1,0 +1,112 @@
+﻿@using J111.Models
+@{
+    ViewBag.Title = "Sepet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9 shadow p-3 mb-5 bg-white rounded">
+            <div class="flex-column">
+                <div class="col">
+                    <h2>Sepetim</h2>
+                </div>
+                <div class="col">
+                    <div class="row no-gutters" style="background-color:#DFDFDF">
+                        <div class="col-1">
+                            <h4 style="color:#808080">Mağaza</h4>
+                        </div>
+                        <div class="col-2">
+                            <h4>Gelengi Games</h4>
+                        </div>
+                        <div class="col-2">
+                            <h4 style="color:#808080">Mağaza Puanı</h4>
+                        </div>
+                        <div class="col-1">
+                            <h4>%98</h4>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                </div>
+                @for (int i = 0; i < Model.Length; i++)
+                {
+                <div class="col" style="margin-top:8px;height:150px">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img src="@Url.Action("GetImage", new { id = Model[i].UrunId })" style="width:150px;height:150px" />
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="flex-column">
+                                <div class="col">
+                                    <h4 style="margin-top:50px">
+                                        @Model[i].UrunAdi
+                                    </h4>
+                                </div>
+                                <div class="col">
+                                    <h4 style="color:#808080" style="margin-top:50px">
+                                        @Model[i].UrunAciklama
+                                    </h4>
+                                </div>
+                                <div class="col">
+                                    <a style="margin-top:50px">sil</a>
+                                    <a style="margin-top:50px">Favorilerine ekle</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <h5 style="margin-top:50px">Ücretsiz Kargo</h5>
+                        </div>
+                        <div class="col-sm">
+                            <input class="border" style="width:35px;margin-top:50px;font-size:large" type="number" id="number" value="2" />
+                        </div>
+                        <div class="col-sm">
+                            <h2 style="margin-top:50px">@Model[i].UrunFiyat TL</h2>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        <div class="col-3 shadow p-3 mb-5 bg-white rounded">
+            <div class="flex-column">
+                <div class="col">
+                    <h2>Sipariş Özeti</h2>
+                </div>
+                <div class="col" style="margin-top:15px">
+                    <h6>Toplam 1 ürün</h6>
+                </div>
+                <div class="col" style="margin-top:15px">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 style="color:#808080">Ürün toplamı</h4>
+                        </div>
+                        @for(int i=0;i< Model.Length;i++)
+                        {
+                        <div class="col-6">
+                            <h4 style="color:#808080">@Model[i].UrunAdi</h4>
+                        </div>
+                        <div class="col-6">
+                            <h4 style="color:#808080">@Model[i].UrunFiyat TL</h4>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div class="col" style="margin-top:15px">
+                    <div class="row">
+                        <div class="col">
+                            <h4 style="color:black">TOPLAM</h4>
+                        </div>
+                        <div class="col">
+                            <h4 style="color:black">@ViewBag.toplamfiyat TL</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button style="margin-top:15px;width:inherit" type="button" class="btn btn-success btn-lg">Satın Al</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

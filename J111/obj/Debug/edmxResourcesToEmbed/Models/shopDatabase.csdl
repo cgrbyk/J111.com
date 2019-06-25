@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Shop_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ADRES">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+      <PropertyRef Name="AdresAdi" />
+    </Key>
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <Property Name="AdresAdi" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdresAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="KULLANICI" Relationship="Self.FK__ADRES__Kullanici__03F0984C" FromRole="ADRES" ToRole="KULLANICI" />
+  </EntityType>
+  <EntityType Name="KARTVERILERI">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+      <PropertyRef Name="KartId" />
+    </Key>
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <Property Name="KartId" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KartSonTarih" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="KULLANICI" Relationship="Self.FK__KARTVERIL__Kulla__04E4BC85" FromRole="KARTVERILERI" ToRole="KULLANICI" />
+  </EntityType>
+  <EntityType Name="KATEGORILER">
+    <Key>
+      <PropertyRef Name="KategoriId" />
+    </Key>
+    <Property Name="KategoriId" Type="Int32" Nullable="false" />
+    <Property Name="KategoriAdi" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="URUNLER" Relationship="Self.FK__URUNLER__UrunKat__5AEE82B9" FromRole="KATEGORILER" ToRole="URUNLER" />
+  </EntityType>
+  <EntityType Name="KULLANICI">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciAd" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KullaniciSoyad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ADRES" Relationship="Self.FK__ADRES__Kullanici__03F0984C" FromRole="KULLANICI" ToRole="ADRES" />
+    <NavigationProperty Name="KARTVERILERI" Relationship="Self.FK__KARTVERIL__Kulla__04E4BC85" FromRole="KULLANICI" ToRole="KARTVERILERI" />
+    <NavigationProperty Name="SIPARIS" Relationship="Self.FK__SIPARIS__Kullani__05D8E0BE" FromRole="KULLANICI" ToRole="SIPARIS" />
+    <NavigationProperty Name="URUNLER" Relationship="Self.ISTEKLISTESI" FromRole="KULLANICI" ToRole="URUNLER" />
+  </EntityType>
+  <EntityType Name="OZELLIKLER">
+    <Key>
+      <PropertyRef Name="UrunID" />
+      <PropertyRef Name="OzellikAdı" />
+    </Key>
+    <Property Name="UrunID" Type="Int32" Nullable="false" />
+    <Property Name="OzellikAdı" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OzellikAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="URUNLER" Relationship="Self.FK__OZELLIKLE__UrunI__4F7CD00D" FromRole="OZELLIKLER" ToRole="URUNLER" />
+  </EntityType>
+  <EntityType Name="RESIMLER">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="Int32" Nullable="false" />
+    <Property Name="ResimBytes" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="isDefault" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="URUNLER" Relationship="Self.FK__RESIMLER__UrunId__5535A963" FromRole="RESIMLER" ToRole="URUNLER" />
+  </EntityType>
+  <EntityType Name="SIPARIS">
+    <Key>
+      <PropertyRef Name="SiparisId" />
+    </Key>
+    <Property Name="SiparisId" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciId" Type="Int32" Nullable="false" />
+    <Property Name="SiparisTarih" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AdresAdi" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="KULLANICI" Relationship="Self.FK__SIPARIS__Kullani__05D8E0BE" FromRole="SIPARIS" ToRole="KULLANICI" />
+    <NavigationProperty Name="URUNLER" Relationship="Self.SIPARISURUNLER" FromRole="SIPARIS" ToRole="URUNLER" />
+  </EntityType>
+  <EntityType Name="URUNLER">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="Int32" Nullable="false" />
+    <Property Name="UrunAdi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UrunFiyat" Type="Int32" Nullable="false" />
+    <Property Name="UrunStok" Type="Int32" Nullable="false" />
+    <Property Name="UrunAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UrunKategoriID" Type="Int32" />
+    <NavigationProperty Name="KATEGORILER" Relationship="Self.FK__URUNLER__UrunKat__5AEE82B9" FromRole="URUNLER" ToRole="KATEGORILER" />
+    <NavigationProperty Name="OZELLIKLER" Relationship="Self.FK__OZELLIKLE__UrunI__4F7CD00D" FromRole="URUNLER" ToRole="OZELLIKLER" />
+    <NavigationProperty Name="RESIMLER" Relationship="Self.FK__RESIMLER__UrunId__5535A963" FromRole="URUNLER" ToRole="RESIMLER" />
+    <NavigationProperty Name="KULLANICI" Relationship="Self.ISTEKLISTESI" FromRole="URUNLER" ToRole="KULLANICI" />
+    <NavigationProperty Name="SIPARIS" Relationship="Self.SIPARISURUNLER" FromRole="URUNLER" ToRole="SIPARIS" />
+  </EntityType>
+  <Association Name="FK__ADRES__Kullanici__03F0984C">
+    <End Role="KULLANICI" Type="Self.KULLANICI" Multiplicity="1" />
+    <End Role="ADRES" Type="Self.ADRES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KULLANICI">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="ADRES">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KARTVERIL__Kulla__04E4BC85">
+    <End Role="KULLANICI" Type="Self.KULLANICI" Multiplicity="1" />
+    <End Role="KARTVERILERI" Type="Self.KARTVERILERI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KULLANICI">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="KARTVERILERI">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__URUNLER__UrunKat__5AEE82B9">
+    <End Role="KATEGORILER" Type="Self.KATEGORILER" Multiplicity="0..1" />
+    <End Role="URUNLER" Type="Self.URUNLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KATEGORILER">
+        <PropertyRef Name="KategoriId" />
+      </Principal>
+      <Dependent Role="URUNLER">
+        <PropertyRef Name="UrunKategoriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SIPARIS__Kullani__05D8E0BE">
+    <End Role="KULLANICI" Type="Self.KULLANICI" Multiplicity="1" />
+    <End Role="SIPARIS" Type="Self.SIPARIS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KULLANICI">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="SIPARIS">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OZELLIKLE__UrunI__4F7CD00D">
+    <End Role="URUNLER" Type="Self.URUNLER" Multiplicity="1" />
+    <End Role="OZELLIKLER" Type="Self.OZELLIKLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="URUNLER">
+        <PropertyRef Name="UrunId" />
+      </Principal>
+      <Dependent Role="OZELLIKLER">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RESIMLER__UrunId__5535A963">
+    <End Role="URUNLER" Type="Self.URUNLER" Multiplicity="1" />
+    <End Role="RESIMLER" Type="Self.RESIMLER" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="URUNLER">
+        <PropertyRef Name="UrunId" />
+      </Principal>
+      <Dependent Role="RESIMLER">
+        <PropertyRef Name="UrunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ISTEKLISTESI">
+    <End Role="KULLANICI" Type="Self.KULLANICI" Multiplicity="*" />
+    <End Role="URUNLER" Type="Self.URUNLER" Multiplicity="*" />
+  </Association>
+  <Association Name="SIPARISURUNLER">
+    <End Role="SIPARIS" Type="Self.SIPARIS" Multiplicity="*" />
+    <End Role="URUNLER" Type="Self.URUNLER" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Shop_dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ADRES" EntityType="Self.ADRES" />
+    <EntitySet Name="KARTVERILERI" EntityType="Self.KARTVERILERI" />
+    <EntitySet Name="KATEGORILER" EntityType="Self.KATEGORILER" />
+    <EntitySet Name="KULLANICI" EntityType="Self.KULLANICI" />
+    <EntitySet Name="OZELLIKLER" EntityType="Self.OZELLIKLER" />
+    <EntitySet Name="RESIMLER" EntityType="Self.RESIMLER" />
+    <EntitySet Name="SIPARIS" EntityType="Self.SIPARIS" />
+    <EntitySet Name="URUNLER" EntityType="Self.URUNLER" />
+    <AssociationSet Name="FK__ADRES__Kullanici__03F0984C" Association="Self.FK__ADRES__Kullanici__03F0984C">
+      <End Role="KULLANICI" EntitySet="KULLANICI" />
+      <End Role="ADRES" EntitySet="ADRES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KARTVERIL__Kulla__04E4BC85" Association="Self.FK__KARTVERIL__Kulla__04E4BC85">
+      <End Role="KULLANICI" EntitySet="KULLANICI" />
+      <End Role="KARTVERILERI" EntitySet="KARTVERILERI" />
+    </AssociationSet>
+    <AssociationSet Name="FK__URUNLER__UrunKat__5AEE82B9" Association="Self.FK__URUNLER__UrunKat__5AEE82B9">
+      <End Role="KATEGORILER" EntitySet="KATEGORILER" />
+      <End Role="URUNLER" EntitySet="URUNLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SIPARIS__Kullani__05D8E0BE" Association="Self.FK__SIPARIS__Kullani__05D8E0BE">
+      <End Role="KULLANICI" EntitySet="KULLANICI" />
+      <End Role="SIPARIS" EntitySet="SIPARIS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OZELLIKLE__UrunI__4F7CD00D" Association="Self.FK__OZELLIKLE__UrunI__4F7CD00D">
+      <End Role="URUNLER" EntitySet="URUNLER" />
+      <End Role="OZELLIKLER" EntitySet="OZELLIKLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RESIMLER__UrunId__5535A963" Association="Self.FK__RESIMLER__UrunId__5535A963">
+      <End Role="URUNLER" EntitySet="URUNLER" />
+      <End Role="RESIMLER" EntitySet="RESIMLER" />
+    </AssociationSet>
+    <AssociationSet Name="ISTEKLISTESI" Association="Self.ISTEKLISTESI">
+      <End Role="KULLANICI" EntitySet="KULLANICI" />
+      <End Role="URUNLER" EntitySet="URUNLER" />
+    </AssociationSet>
+    <AssociationSet Name="SIPARISURUNLER" Association="Self.SIPARISURUNLER">
+      <End Role="SIPARIS" EntitySet="SIPARIS" />
+      <End Role="URUNLER" EntitySet="URUNLER" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

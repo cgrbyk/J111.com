@@ -1,0 +1,73 @@
+﻿@model J111.Models.kullaniciGiris
+@{
+    ViewBag.Title = "Giris";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col shadow p-3 mb-5 bg-white rounded mr-5">
+            <!--giris-->
+            <h2>Giriş Yap</h2>
+            @using (Html.BeginForm("Giris", "Home", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label>Email adresi</label>
+                    @Html.TextBoxFor(m => m.email, "Email", new { @type = "email", @class = "form-control form-control-lg" })                     
+                    <small id="emailHelp" class="form-text text-muted">Emailiniz 3. kişiler ile asla paylaşılmaz.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Şifre</label>
+                    @Html.TextBoxFor(m => m.sifre, "Şifre", new { @type = "password", @class = "form-control form-control-lg" })
+                </div>
+                <div class="col">
+                    <label style="color:red">@ViewBag.HataliGiris</label>
+                </div>
+                <button style="width:280px;margin-top:20px" type="submit" class="btn btn-primary btn-lg">Giriş</button>
+            }
+        </div>
+        <div class="col shadow p-3 mb-5 bg-white rounded"><!--Kayıt-->
+        <h2>Üye Ol</h2>
+            @using (Html.BeginForm("GirisKayit", "Home", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>İsim</label>
+                            @Html.TextBoxFor(m => m.ad, "İsim", new { @type = "text", @class="form-control form-control-lg"})
+                        </div>
+                        <div class="form-group">
+                            <label>Soy İsim</label>
+                            @Html.TextBoxFor(m => m.soyad, "Soy isim", new { @type = "text", @class = "form-control form-control-lg" })
+                        </div>
+                        <div class="form-group">
+                            <label>Email adresi</label>
+                            @Html.TextBoxFor(m => m.email, "Email", new { @type = "email", @class = "form-control form-control-lg" })
+                            <small id="emailHelp" class="form-text text-muted">Emailiniz 3. kişiler ile asla paylaşılmaz.</small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Şifre</label>
+                            <label class="sr-only">Password</label>
+                            @Html.TextBoxFor(m => m.sifre, "Şifre", new { @type = "password", @class = "form-control form-control-lg" })
+                        </div>
+                        <div class="form-group">
+                            <label>Şifre (Tekrar)</label>
+                            <label class="sr-only">Password</label>
+                            @Html.TextBoxFor(m => m.sifre2, "Şifre tekrar", new { @type = "password", @class = "form-control form-control-lg" })
+                        </div>
+                        <button style="width:250px;margin-top:20px" type="submit" class="btn btn-primary btn-lg">Kayıt</button>
+                        <div class="col">
+                            @if (ViewBag.msg != null)
+                            {
+                            <label style="color:red">@ViewBag.msg</label>
+                            }                          
+                        </div>
+                    </div>
+                </div>
+             }
+        </div>
+    </div>
+</div>
+
